@@ -1,0 +1,16 @@
+config ARCH_MT8127
+        bool "MediaTek MT8127"
+        select GENERIC_TIME
+        select GENERIC_CLOCKEVENTS
+        select ARCH_HAS_CPUFREQ
+        select ARM_AMBA
+        select CPU_V7
+        select HAVE_SMP
+        select NEED_MACH_MEMORY_H
+        select ARM_GIC
+        select HAVE_MTK_IN_HOUSE_TEE_SUPPORT
+        select L1C_OPT
+        select VFP_OPT        
+        select HAVE_TRUSTONIC_TEE_SUPPORT
+        help
+          This enable support for MediaTek MT8127.

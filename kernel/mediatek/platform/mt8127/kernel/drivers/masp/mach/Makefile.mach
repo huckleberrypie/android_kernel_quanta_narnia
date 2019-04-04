@@ -1,0 +1,25 @@
+#######################################
+# Sepcify source files
+#######################################
+ifneq ($(CONFIG_MTK_IN_HOUSE_TEE_SUPPORT),)
+mach_obj += mach/sec_lib.o
+mach_obj += mach/sec_uid.o
+mach_obj += mach/mtee/hacc_lib.o
+mach_obj += mach/mtee/hacc_export.o
+mach_obj += mach/mtee/hacc_hk.o
+mach_obj += mach/mtee/hacc_sk.o
+
+EXTRA_CFLAGS += -I$(srctree)/../mediatek/kernel/include
+EXTRA_CFLAGS += -I$(srctree)/../mediatek/kernel/include/trustzone
+
+else
+mach_obj += mach/sec_lib.o
+mach_obj += mach/sec_uid.o
+mach_obj += mach/hacc_lib.o
+mach_obj += mach/hacc_export.o
+mach_obj += mach/hacc_hk.o
+mach_obj += mach/hacc_sk.o
+endif
+
+# HEADER FILE
+EXTRA_CFLAGS += -I$(src)/asf/asf_inc

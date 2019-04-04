@@ -1,0 +1,59 @@
+# drivers/video/mtk/Makefile
+#
+#
+
+obj-$(CONFIG_MTK_FB) += disp_drv.o                  \
+         mtkfb_console.o                            \
+         disp_assert_layer.o                        \
+         mtkfb.o                                    \
+		 mtkfb_vsync.o								\
+         debug.o                                    \
+         mtkfb_proc.o								
+#         disp_sync.o
+
+ccflags-y += -I$(MTK_PATH_PLATFORM)/drivers/dispsys/ \
+       -I$(MTK_PATH_SOURCE)/include/trustzone/ \
+			 -I$(MTK_PATH_SOURCE)/drivers/  \
+			 -I$(MTK_PATH_SOURCE)/drivers/video/  \
+			 -I$(MTK_PATH_SOURCE)/drivers/sync/ \
+			 -I$(MTK_PATH_PLATFORM)/drivers/videox/ \
+			 -I$(MTK_PATH_PLATFORM)/drivers/video/
+
+
+
+ifneq ($(CONFIG_MTK_OVERLAY_ENGINE_SUPPORT),)
+obj-y += \
+    disp_ovl_engine_api.o \
+    disp_ovl_engine_core.o \
+    disp_ovl_engine_dev.o \
+    disp_ovl_engine_sw.o \
+    disp_ovl_engine_hw.o
+    
+ccflags-y += -DMTK_OVERLAY_ENGINE_SUPPORT
+
+ifneq ($(CONFIG_MTK_SEC_VIDEO_PATH_SUPPORT),)
+ccflags-y += -I$( MTK_PATH_SOURCE)/include
+ccflags-y += -DMTK_SEC_VIDEO_PATH_SUPPORT
+endif
+
+endif
+
+ifeq ($(MTK_INTERNAL_HDMI_SUPPORT), yes)
+ccflags-y += -I$(MTK_PATH_PLATFORM)/drivers/hdmi/
+endif  
+ifeq ($(MTK_INTERNAL_MHL_SUPPORT), yes)
+ccflags-y += -I$(MTK_PATH_PLATFORM)/drivers/mhltx/
+endif   
+ifeq ($(MTK_DITHERING_SUPPORT), yes)
+ccflags-y += -DDITHERING_SUPPORT
+endif
+
+ifeq ($(MTK_GPU_SUPPORT), yes)
+ccflags-y += -DHWGPU_SUPPORT
+endif
+
+ifeq ($(CONFIG_MMPROFILE),y)
+ccflags-y += -DDEFAULT_MMP_ENABLE
+endif
+
+
